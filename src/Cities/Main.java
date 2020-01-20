@@ -25,27 +25,28 @@ public class Main {
         }
         result = false;
         ArrayList<String> targets = new ArrayList<>();
+        ArrayList<Integer> packs = new ArrayList<Integer>();
         Scanner scanner2 = new Scanner(System.in);
         boolean next = true;
         while(next){
-            System.out.println("Podaj miasta docelowe:");
+            System.out.println("Podaj miasto docelowe:");
             k = scanner.nextLine();
-
+            //System.out.println("ilość paczek do dostarczenia w "+k+": ");
+            //packs.add(scanner.nextInt());
             result = cities.contains(k);
             targets.add(k);
             System.out.println("Koniec?: ");
             if(scanner2.nextLine().equals("y")) next=false;
         }
+        //tworzy permutacje trasy
         List<List<String>> alternatives = generatePerm(targets);
 
-
-
-
         for(int i=0;i<alternatives.size();i++){
+            //dodaje miasto początkowe do wszystkich alternaywnych tras
             alternatives.get(i).add(0,s);
-
         }
         System.out.println(alternatives.toString());
+
         int fullDistance = 0;
         String prevCity = s;
         System.out.println("Przystanki: ");
@@ -58,6 +59,7 @@ public class Main {
                 prevCity = target;
 
             }
+            //dodanie do dystansu powrót do głównego miasta
             fullDistance+=distance(prevCity,s);
 
             System.out.println("Cały dystans: "+fullDistance);
@@ -66,6 +68,7 @@ public class Main {
         }
 
     }
+    //generuje permutacje tras bez uwzględnienia miasta głównego
     public static <E> List<List<E>> generatePerm(List<E> original) {
         if (original.isEmpty()) {
             List<List<E>> result = new ArrayList<>();
@@ -84,6 +87,7 @@ public class Main {
         }
         return returnValue;
     }
+    //liczy dystans z miasta start do end (szuka połączenia)
     private static int distance(String start, String end){
 
         MainCities mc = new MainCities();
