@@ -1,0 +1,4 @@
+Warszawa-Wroclaw(350),Krakow(300),Rzeszow(320)
+Rzeszow-Wroclaw(440),Krakow(160),Warszawa(320)
+Wroclaw-Rzeszow(440),Warszawa(350),Krakow(270)
+Krakow-Wroclaw(270),Warszawa(300),Rzeszow(160)
