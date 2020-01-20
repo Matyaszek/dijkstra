@@ -1,5 +1,6 @@
 package Cities;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Main {
@@ -35,24 +36,54 @@ public class Main {
             System.out.println("Koniec?: ");
             if(scanner2.nextLine().equals("y")) next=false;
         }
+        List<List<String>> alternatives = generatePerm(targets);
 
+
+
+
+        for(int i=0;i<alternatives.size();i++){
+            alternatives.get(i).add(0,s);
+
+        }
+        System.out.println(alternatives.toString());
         int fullDistance = 0;
         String prevCity = s;
         System.out.println("Przystanki: ");
-        for (String target:targets
+        for (List<String> list:alternatives
              ) {
-            fullDistance+=distance(prevCity,target);
-            prevCity = target;
+            prevCity = s;
+            for (String target:list
+            ) {
+                fullDistance+=distance(prevCity,target);
+                prevCity = target;
 
+            }
+            fullDistance+=distance(prevCity,s);
+
+            System.out.println("Cały dystans: "+fullDistance);
+            System.out.println(list);
+            fullDistance = 0;
         }
-        fullDistance+=distance(prevCity,s);
-
-        System.out.print("Cały dystans: "+fullDistance);
-
-
 
     }
-
+    public static <E> List<List<E>> generatePerm(List<E> original) {
+        if (original.isEmpty()) {
+            List<List<E>> result = new ArrayList<>();
+            result.add(new ArrayList<>());
+            return result;
+        }
+        E firstElement = original.remove(0);
+        List<List<E>> returnValue = new ArrayList<>();
+        List<List<E>> permutations = generatePerm(original);
+        for (List<E> smallerPermutated : permutations) {
+            for (int index=0; index <= smallerPermutated.size(); index++) {
+                List<E> temp = new ArrayList<>(smallerPermutated);
+                temp.add(index, firstElement);
+                returnValue.add(temp);
+            }
+        }
+        return returnValue;
+    }
     private static int distance(String start, String end){
 
         MainCities mc = new MainCities();
@@ -70,9 +101,9 @@ public class Main {
         }
         path.add(city);
         Collections.reverse(path);
-        System.out.println("Najkrotsza droga: " + path);
+        //System.out.println("Najkrotsza droga: " + path);
         int dis = mc.getCity(end).distance();
-        System.out.println("Dystans (w kilometrach): " + dis);
+        //System.out.println("Dystans (w kilometrach): " + dis);
         return dis;
     }
     private static void showCities(Set cities){

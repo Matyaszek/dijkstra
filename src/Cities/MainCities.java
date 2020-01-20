@@ -7,7 +7,7 @@ import java.util.*;
 public class MainCities {
 
 
-    public static String FILE_PATH = "src/Cities/cities.txt"; // sciezka do pliku
+    public static String FILE_PATH = "src/Cities/MainCities.txt"; // sciezka do pliku
 
     public HashMap<String, City> cities; //slownik przechowuje nazwe miasta i obiekt
     public Graph graph;
